@@ -1,3 +1,4 @@
+# Exibe o MENU de escolha
 def menu():
     menu = """Escolha uma das operações que deseja realizar:
     [1] Depositar
@@ -9,6 +10,7 @@ def menu():
     [0] Sair\n"""
     return int(input(menu))
 
+# Função de saque com toda a lógica da operação
 def sacar(*, saldo, limite_valor_saque, extrato, saque_diario, sacar_valor):  
     if saque_diario > 0:
         if sacar_valor <= saldo:
@@ -24,6 +26,7 @@ def sacar(*, saldo, limite_valor_saque, extrato, saque_diario, sacar_valor):
         print("O Sr(a) atingiu o limite de saques diários!")
     return saldo, extrato, saque_diario
 
+# Função de depositar com toda a lógica da operação
 def depositar(saldo, extrato, depositar_valor, /):
     if depositar_valor > 0:
         extrato += f"Depositou R${depositar_valor}\n"
@@ -32,13 +35,17 @@ def depositar(saldo, extrato, depositar_valor, /):
         print("Digite um valor válido!")
     return saldo, extrato
 
+# Função de extrato, para exibir todas transações feitas
 def exibir_extrato(saldo, /, *, extrato=""):
     print(f"EXTRATO\n{extrato}\nSaldo final de R${saldo}")
 
+# Lista que armazena todos usuários cadastrados
 usuario_lista = []
 
+# Lista que armazena todas contas-corrente cadastradas
 contas = []
 
+# Dicionário padrão para cadastro de usuário
 usuario_dados = {
     "nome": "", 
     "data_nasc": "", 
@@ -52,10 +59,12 @@ usuario_dados = {
     }
 }
 
+# Função que verifica se o CPF digitado está cadastrado ou não
 def filtrar_usuario(cpf, usuarios_dados):
     usuarios_filtrados = [usuario for usuario in usuarios_dados if usuario["cpf"] == cpf]
     return usuarios_filtrados[0] if usuarios_filtrados else None
 
+# Função para cadastrar/criar um novo usuário
 def criar_usuario():
     novo_usuario = {
         "nome": "", 
@@ -89,6 +98,7 @@ def criar_usuario():
 
     print("Usuário adicionado com sucesso!\n")
 
+# Função para cadastrar/criar um nova conta-corrente
 def criar_conta(agencia, numero_conta, usuarios):
     cpf = input("Digite o CPF: ")
     usuario = filtrar_usuario(cpf, usuarios)
@@ -99,6 +109,7 @@ def criar_conta(agencia, numero_conta, usuarios):
 
     print("\n Usuário não está cadastrado no sistema!")
 
+# Função que lista todas contas-corrente criadas
 def lista_contas():
     if not contas:
         print("Nenhuma conta cadastrada.")
@@ -113,7 +124,7 @@ def lista_contas():
         print(f"  Bairro: {endereco['bairro']}, Cidade-Estado: {endereco['cidade_estado']}\n")
 
         
-
+# Função principal, que executa toda a operação
 def main():
     SAQUE_DIARIO = 3
     LIMITE_VALOR_SAQUE = 500
@@ -160,5 +171,6 @@ def main():
 
         else:
             print("Digite um valor válido!")
-
+            
+# Executa a função principal
 main()
